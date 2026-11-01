@@ -1,0 +1,6 @@
+# generated output, rebuild with python generate.py
+data/
+docs/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
