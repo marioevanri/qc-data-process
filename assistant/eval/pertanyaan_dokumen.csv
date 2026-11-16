@@ -1,0 +1,32 @@
+id,tipe,pertanyaan,jawaban_benar,doc_no,rev,kata_kunci
+D01,aturan,"Berapa batas maksimal PV minyak saat penerimaan, dan kapan masuk kategori Conditional?","Maksimal 2,0 meq O2/kg. Conditional kalau PV 1,5 meq/kg atau lebih.",SOP-QC-001,03,"2,0;1,5"
+D02,aturan,Berapa lama masa pakai kontrol sensory NDC-28P?,"30 hari, karena grade berbasis RBD Palm Oil.",SOP-QC-005|SPEC-NDC-28P,,30 hari
+D03,aturan,"Tahun 2025, berapa persen sampel yang diverifikasi acak oleh verifikator?",25 % (SOP-QC-005 Rev 02).,SOP-QC-005,02,25
+D04,aturan,"Februari 2026, berapa persen sampel yang diverifikasi acak?",30 % (SOP-QC-005 Rev 03 berlaku 05/01/2026).,SOP-QC-005,03,30
+D05,aturan,Nilai -1 di lembar sensory Rev 03 sama dengan label apa di Rev 02?,agak kurang,SOP-QC-005,03,agak kurang
+D06,aturan,Berapa lama kontrol sensory boleh diperpanjang menurut SOP terbaru?,"Maksimal 14 hari setelah jatuh tempo dengan persetujuan QC Supervisor, setelah itu wajib kontrol sementara.",SOP-QC-005,03,14 hari
+D07,aturan,Bagaimana cara menyiapkan larutan untuk uji viskositas?,"20 g sampel dalam air demineral sampai 100 ml (20 % b/v), suhu 25 +/- 0,5 C, spindle LV-1 60 rpm, baca setelah 60 detik.",SOP-QC-007,01,20;100 ml
+D08,aturan,Apa yang harus dilakukan setelah lampu NIRS diganti?,"Cek bias dengan minimal 10 sampel referensi, koreksi model kalau bias kadar air lebih dari 0,1 %.",SOP-QC-009,02,"10;0,1"
+D09,aturan,Berapa batas kadar air NDC-28P untuk produksi 15 November 2025?,"3,5 % (Spec Rev A).",SPEC-NDC-28P,A,"3,5"
+D10,aturan,Berapa batas kadar air NDC-28P yang berlaku sekarang?,"3,2 % sejak 01/12/2025 (Spec Rev B).",SPEC-NDC-28P,B,"3,2"
+D11,aturan,Bagaimana transisi grade di Line Retail dicek?,"Sampel tiap menit mulai sekitar menit ke-1 sampai 2 sampel berturut-turut pass, maksimal 12 sampel. Yang dicatat jam sampel.",SOP-QC-015,01,12
+D12,aturan,Release normal menunggu hasil uji apa saja?,"Fisik-kimia dan sensory OK, plus mikro TPC, coliform, kapang khamir (H+3). Salmonella (H+5) boleh didahului.",SOP-QC-012,,Salmonella|salmonella;TPC
+D13,aturan,Apakah CRM-RT boleh release urgent pada Agustus 2025?,"Boleh dengan permintaan tertulis PPIC, semua hasil fisik-kimia dan sensory OK, dan persetujuan QA Manager (Rev 04).",SOP-QC-012,04,PPIC;QA Manager
+D14,aturan,Apakah CRM-RT boleh release urgent pada Oktober 2025?,Tidak. SOP-QC-012 Rev 05 per 02/09/2025 melarang release urgent untuk produk retail.,SOP-QC-012,05,Tidak|tidak;Rev 05
+D15,aturan,Kenapa SOP-QC-012 direvisi ke Rev 05?,Menindaklanjuti recall akibat CIP tidak tuntas.,SOP-QC-012,05,recall|CIP
+R01,catatan,Kenapa lampu NIRS diganti dan kapan?,Diganti 25/12/2025 karena energi lampu sudah di bawah batas.,MEMO-QC-2025-016,,25/12/2025;energi
+R02,catatan,"Berapa bias kadar air NIRS setelah lampu diganti, dan kapan dikoreksi?","Prediksi kadar air lebih tinggi rata-rata 0,12 % dibanding moisture analyzer. Model dikoreksi 08/02/2026.",MEMO-QC-2026-012,,"0,12;08/02/2026"
+R03,catatan,Apa penyebab off-flavor gosong di Line Retail Agustus 2025?,"Bias sensor suhu outlet TT-102 sekitar 2,4 C lebih rendah, jadi suhu outlet aktual lebih panas. Dugaan awal di NCR (nozzle aus) ternyata salah.",MEMO-QC-2025-013|NCR-25-040,,"TT-102|sensor;2,4"
+R04,catatan,Berapa drift viskometer yang ditemukan Januari 2026 dan kenapa tidak terdeteksi lebih awal?,"Pembacaan sekitar 13 % lebih tinggi. Cek harian dengan standar 5,0 cP tidak jalan sejak akhir Oktober 2025 karena stok standar habis.",MEMO-QC-2026-006,,13;standar
+R05,catatan,Kapan supplier skim milk powder berganti dan kenapa QC tidak tahu?,"Sejak 03/08/2025 ke Pampa Dairy Powders S.A. Memo RND 01/09/2025 hanya dikirim ke Purchasing, PPIC, dan Produksi.",MEMO-RND-2025-004|Notulen_Rapat_QC_2025-10,,03/08/2025;Pampa
+R06,catatan,Apa yang ditemukan saat overhaul homogenizer Plant 1?,"Valve dan seat tahap pertama aus. Gauge tekanan masih dekat setpoint, tapi efisiensi homogenisasi turun.",MEMO-ENG-2026-009,,valve|Valve;aus
+R07,catatan,"Lot minyak dari supplier mana yang masuk Conditional Juni 2025, dan grade apa yang perlu dipantau?","RBD Palm Oil dari PT Minyak Sawit Jaya, PV mendekati batas. Grade NDC-28P, FMP-26, dan MLK-RT.",MEMO-QC-2025-007,,Minyak Sawit Jaya;NDC-28P
+R08,catatan,Apa kesimpulan investigasi komplain CMP-25-004?,"Komplain terbukti. Oksidasi minyak, batch memakai lot minyak dengan PV mendekati batas.",CMP-25-004,,terbukti|Terbukti;oksidasi|Oksidasi|PV
+R09,catatan,Kenapa lot SMP-250524-01 ditolak?,"Protein rendah, tidak memenuhi spesifikasi. Skim Milk Powder dari Alpenmilch Pulver GmbH.",NCR-25-020,,protein|Protein
+R10,catatan,Sampai kapan kontrol CTRL-61-005 diperpanjang?,"Sampai 24/01/2026, diperpanjang 14 hari dari jatuh tempo 10/01/2026.",MEMO-QC-2026-008,,24/01/2026
+J01,jebakan,Berapa harga jual NDC-35 per kg ke PT Kopi Instan Sejahtera?,Tidak ditemukan di dokumen.,,,tidak ditemukan|Tidak ditemukan
+J02,jebakan,Supplier HCO mana yang paling murah?,"Tidak ditemukan di dokumen, tidak ada informasi harga.",,,tidak ditemukan|Tidak ditemukan
+J03,jebakan,Apa formula lengkap NDC-35?,"Tidak ditemukan di dokumen, formula tidak ada di dokumen QC.",,,tidak ditemukan|Tidak ditemukan
+J04,jebakan,Berapa gaji analis KimFis?,Tidak ditemukan di dokumen.,,,tidak ditemukan|Tidak ditemukan
+J05,jebakan,Berapa batas kadar air produk WTP-20?,Tidak ditemukan di dokumen. Produk WTP-20 tidak ada.,,,tidak ditemukan|Tidak ditemukan
+J06,jebakan,Siapa direktur utama PT Sari Krimer Nusantara?,Tidak ditemukan di dokumen.,,,tidak ditemukan|Tidak ditemukan

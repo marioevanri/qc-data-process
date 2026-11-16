@@ -1,0 +1,13 @@
+id,tipe,pertanyaan,jawaban_benar,doc_no,rev,kata_kunci
+H01,aturan,Berapa batas FFA minyak saat penerimaan?,"Maksimal 0,10 % (SOP-QC-001 Rev 03).",SOP-QC-001,03,"0,10"
+H02,aturan,"Maret 2026, berapa porsi verifikasi acak verifikator per hari?","30 % sampel per hari, ditambah semua sampel TP2 dan TP3 (SOP-QC-005 Rev 03).",SOP-QC-005,03,30
+H03,aturan,Apakah MLK-RT boleh release urgent pada Desember 2025?,Tidak. SOP-QC-012 Rev 05 per 02/09/2025 melarang release urgent untuk produk retail.,SOP-QC-012,05,Tidak|tidak
+H04,aturan,Apakah NDC-35 boleh release urgent pada November 2025?,"Boleh karena produk B2B, dengan syarat hasil baca awal TPC 48 jam memenuhi syarat, permintaan tertulis PPIC, dan persetujuan QA Manager (Rev 05).",SOP-QC-012,05,48 jam
+H05,aturan,Berapa rasio maksimal blending produk hold ke mix yang pass?,Maksimal 1:4.,SOP-QC-012,,1:4
+H06,aturan,Kontrol sensory FMP-26 dipakai berapa lama?,"30 hari, karena grade berbasis RBD Palm Oil.",SOP-QC-005|SPEC-FMP-26,,30 hari
+H07,catatan,Sejak kapan cek harian viskometer dengan cairan standar tidak berjalan?,"Sejak akhir Oktober 2025, karena stok standar habis dan pemesanan ulang terlambat.",MEMO-QC-2026-006,,Oktober 2025
+H08,catatan,Apa tindakan setelah valve CIP Plant 1 bermasalah?,"Valve diganti, verifikasi CIP dengan swab ATP setelah setiap CIP selama 1 bulan, dan SOP-QC-012 direvisi untuk membatasi release urgent.",MEMO-QC-2025-011,,ATP
+H09,catatan,Kenapa cek bias NIRS tertunda setelah ganti lampu?,"Sampel referensi belum dikumpulkan, tertunda sekitar 6 minggu.",MEMO-QC-2026-012,,referensi
+H10,catatan,Siapa supplier baru skim milk powder untuk FMP-26?,"Pampa Dairy Powders S.A., sejak 03/08/2025.",MEMO-RND-2025-004|Notulen_Rapat_QC_2025-10,,Pampa
+H11,catatan,Komplain CMP-25-014 terbukti atau tidak?,Tidak terbukti. Sampel retain dan data batch dalam batas normal.,CMP-25-014,,tidak terbukti|Tidak terbukti
+H12,jebakan,Berapa kapasitas spray dryer Plant 2 per jam?,Tidak ditemukan di dokumen.,,,tidak ditemukan|Tidak ditemukan
