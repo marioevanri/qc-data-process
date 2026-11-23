@@ -8,10 +8,11 @@ from assistant import DEFAULT_MODEL, ask, build_index
 
 MAX_QUESTIONS = 15
 EXAMPLES = [
+    "Komplain CMP-25-010 dari batch mana dan bagaimana hasil QC batch itu?",
+    "Batch 25062434P1 statusnya apa dan kenapa?",
+    "Lot PO-250623-01 dipakai di batch mana saja dan apakah ada masalah sensory?",
+    "Seberapa sering hasil verifikator beda dengan KimFis di Februari 2026?",
     "Berapa batas kadar air NDC-28P yang berlaku sekarang?",
-    "Februari 2026, berapa persen sampel yang diverifikasi acak?",
-    "Apa yang harus dilakukan setelah lampu NIRS diganti?",
-    "Apakah CRM-RT boleh release urgent pada Oktober 2025?",
 ]
 
 st.set_page_config(page_title="QC Assistant", page_icon="🧪")
@@ -35,10 +36,10 @@ def secret(name, default=""):
 
 
 st.title("QC Assistant")
-st.caption("Tanya SOP, spesifikasi, NCR, memo, logbook, notulen, dan laporan investigasi komplain "
-           "PT Sari Krimer Nusantara (pabrik fiktif).")
-st.info("Semua dokumen di demo ini fiktif. Jawaban bisa salah, jadi cocokkan dengan kutipan sumber di bawah tiap "
-        "jawaban. Asisten ini baru membaca dokumen, belum tersambung ke database hasil analisa. "
+st.caption("Tanya SOP, spesifikasi, NCR, memo, dan laporan komplain, atau sebut nomor komplain, batch, atau lot "
+           "bahan baku untuk melihat datanya. PT Sari Krimer Nusantara adalah pabrik fiktif.")
+st.info("Semua data dan dokumen di demo ini fiktif. Jawaban bisa salah, jadi cocokkan dengan data dan kutipan "
+        "di bawah tiap jawaban. Data diambil lewat query yang sudah diuji, modelnya tidak menulis SQL sendiri. "
         "Jangan masukkan data rahasia, karena pertanyaan dikirim ke Gemini API versi gratis.")
 
 api_key = secret("GEMINI_API_KEY")
@@ -54,6 +55,13 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 
+def show_data(data):
+    with st.expander(f"Data database ({len(data)} query)"):
+        for d in data:
+            st.markdown(f"**{d['title']}**")
+            st.text(d["text"])
+
+
 def show_sources(sources):
     with st.expander(f"Sumber ({len(sources)} kutipan)"):
         for s in sources:
@@ -64,6 +72,8 @@ def show_sources(sources):
 for m in st.session_state.messages:
     with st.chat_message(m["role"]):
         st.markdown(m["content"])
+        if m.get("data"):
+            show_data(m["data"])
         if m.get("sources"):
             show_sources(m["sources"])
 
@@ -86,16 +96,19 @@ if question:
     with st.chat_message("assistant"):
         try:
             # every question is searched on its own, earlier messages are not sent to the model
-            with st.spinner("Mencari di dokumen..."):
-                answer, found = ask(client, index, question, model=model)
+            with st.spinner("Mencari di database dan dokumen..."):
+                answer, found, results = ask(client, index, question, model=model)
             sources = [{"label": c.label, "file": c.file, "text": c.text} for _, c in found]
+            data = [{"title": title, "text": r["text"]} for title, r in results]
         except errors.ClientError as e:
-            answer, sources = ("Kuota Gemini gratis sedang habis, coba lagi beberapa saat."
-                               if e.code == 429 else f"Permintaan ditolak Gemini ({e.code})."), []
+            answer, sources, data = ("Kuota Gemini gratis sedang habis, coba lagi beberapa saat."
+                                     if e.code == 429 else f"Permintaan ditolak Gemini ({e.code})."), [], []
         except errors.APIError:
-            answer, sources = "Server Gemini sedang sibuk, coba lagi sebentar.", []
+            answer, sources, data = "Server Gemini sedang sibuk, coba lagi sebentar.", [], []
         st.markdown(answer)
+        if data:
+            show_data(data)
         if sources:
             show_sources(sources)
-    st.session_state.messages.append({"role": "assistant", "content": answer, "sources": sources})
+    st.session_state.messages.append({"role": "assistant", "content": answer, "sources": sources, "data": data})
     st.rerun()

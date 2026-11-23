@@ -1,0 +1,13 @@
+kata,kategori,keterangan
+feathering,Feathering di kopi,dicek berurutan dari atas. Kata pertama yang ada di keluhan menentukan kategori
+mengapung,Feathering di kopi,gumpalan putih di permukaan kopi adalah feathering
+pecah,Feathering di kopi,
+gumpal,Caking / menggumpal,
+lembab,Caking / menggumpal,
+tengik,Off-flavor tengik,
+creamy,Kurang creamy,
+nendang,Kurang creamy,
+encer,Kurang creamy,
+mikro,Mikro,
+tpc,Mikro,
+*,Kemasan / lain-lain,keluhan yang tidak cocok dengan kata mana pun

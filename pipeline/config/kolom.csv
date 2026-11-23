@@ -1,0 +1,170 @@
+tabel,kolom_raw,kolom_baku,tipe,wajib
+production_mix_log,Date,prod_date,tanggal,ya
+production_mix_log,Line,line,teks,ya
+production_mix_log,Product,grade,grade,ya
+production_mix_log,Batch,batch_no,batch,ya
+production_mix_log,Mix No,mix_no,angka,tidak
+production_mix_log,Start,start,jam,ya
+production_mix_log,Finish,end,jam,tidak
+production_mix_log,Qty (kg),mix_kg,angka,tidak
+production_mix_log,Oil Lot,oil_lot,teks,tidak
+production_mix_log,GSS Lot,gss_lot,teks,tidak
+production_mix_log,Protein Lot,protein_lot,teks,tidak
+production_mix_log,Inlet (C),inlet_temp,angka,tidak
+production_mix_log,Outlet (C),outlet_temp,angka,tidak
+production_mix_log,Homog P1 (bar),homog_p1_bar,angka,tidak
+production_mix_log,Homog P2 (bar),homog_p2_bar,angka,tidak
+production_mix_log,Feed TS (%),feed_solids,angka,tidak
+production_mix_log,Emul Temp (C),emulsion_temp,angka,tidak
+production_mix_log,Operator,operator,teks,tidak
+production_mix_log,Remarks,remarks,teks,tidak
+dryer_logger,Timestamp,timestamp,waktu,ya
+dryer_logger,TT101_Inlet,inlet_temp,angka,tidak
+dryer_logger,TT102_Outlet,outlet_temp,angka,tidak
+dryer_logger,PT201_Homog1,homog_p1_bar,angka,tidak
+dryer_logger,PT202_Homog2,homog_p2_bar,angka,tidak
+dryer_logger,TT301_Emul,emulsion_temp,angka,tidak
+dryer_logger,RH_Ambient,ambient_rh,angka,tidak
+qc_lab_kimfis,Tgl Produksi,prod_date,tanggal,ya
+qc_lab_kimfis,Line,line_sheet,teks,tidak
+qc_lab_kimfis,No Batch,batch_no,batch,ya
+qc_lab_kimfis,Grade,grade,grade,ya
+qc_lab_kimfis,Kode Sampel,sample_code,teks,ya
+qc_lab_kimfis,Jam Sampling,sample_time,jam,ya
+qc_lab_kimfis,Jam Uji,test_time,jam,ya
+qc_lab_kimfis,Analis,analyst_id,teks,tidak
+qc_lab_kimfis,KA (%),moisture_pct,angka,tidak
+qc_lab_kimfis,Lemak (%),fat_pct,angka,tidak
+qc_lab_kimfis,Protein (%),protein_pct,angka,tidak
+qc_lab_kimfis,Visko (cP),viscosity_cp,angka,tidak
+qc_lab_kimfis,Viskositas (cP),viscosity_cp,angka,tidak
+qc_lab_kimfis,Brix,brix,angka,tidak
+qc_lab_kimfis,BD (g/ml),bulk_density,angka,tidak
+qc_lab_kimfis,Bulk Density,bulk_density,angka,tidak
+qc_lab_kimfis,Kelarutan (ml),solubility_ml,angka,tidak
+qc_lab_kimfis,Wettability (s),wettability_s,angka,tidak
+qc_lab_kimfis,L*,L_star,angka,tidak
+qc_lab_kimfis,pH,ph,angka,tidak
+qc_lab_kimfis,Coffee Test,coffee_test,teks,tidak
+qc_lab_kimfis,Retest (Y/N),retest_flag,teks,tidak
+qc_lab_kimfis,Ket,notes,teks,tidak
+sensory_kimfis,Tgl,prod_date,tanggal,ya
+sensory_kimfis,Batch,batch_no,batch,ya
+sensory_kimfis,Grade,grade,grade,ya
+sensory_kimfis,Sampel,sample_code,teks,ya
+sensory_kimfis,Jam,test_time,jam,ya
+sensory_kimfis,Analis,analyst_id,teks,tidak
+sensory_kimfis,Kontrol,control_id,teks,tidak
+sensory_kimfis,Creamy,score_creamy,teks,ya
+sensory_kimfis,Mouthfeel,score_mouthfeel,teks,ya
+sensory_kimfis,Milky,score_milky,teks,ya
+sensory_kimfis,Manis,score_sweetness,teks,ya
+sensory_kimfis,Hasil,result_old,teks,tidak
+sensory_kimfis,Grade Sensory,result_new,teks,tidak
+sensory_kimfis,Catatan,notes,teks,tidak
+sensory_controls,ID Kontrol,control_id,teks,ya
+sensory_controls,Grade,grade,grade,ya
+sensory_controls,Batch Asal,source_batch,batch,tidak
+sensory_controls,Tgl Mulai,start_use,tanggal,ya
+sensory_controls,Tgl Expired,due_date,tanggal,tidak
+sensory_controls,Tgl Ganti,end_use,tanggal,tidak
+sensory_controls,Keterangan,note,teks,tidak
+nirs_results,Scan No,scan_id,teks,ya
+nirs_results,Date Time,scan_time,waktu,ya
+nirs_results,Sample Name,sample_name,teks,ya
+nirs_results,Product Model,product_model,teks,ya
+nirs_results,Moisture,pred_moisture,angka,tidak
+nirs_results,Fat,pred_fat,angka,tidak
+nirs_results,Protein,pred_protein,angka,tidak
+nirs_results,Instrument,instrument,teks,tidak
+micro_results,Tgl Terima,received_lab,tanggal,ya
+micro_results,No Batch,batch_no,batch,ya
+micro_results,Grade,grade,grade,ya
+micro_results,TPC (cfu/g),tpc_raw,teks,tidak
+micro_results,Coliform,coliform_raw,teks,tidak
+micro_results,Kapang Khamir,ym_raw,teks,tidak
+micro_results,E. coli,ecoli,teks,tidak
+micro_results,Salmonella,salmonella,teks,tidak
+micro_results,Tgl Hasil,result_date,tanggal,tidak
+micro_results,Status,status_raw,teks,ya
+rm_receiving,Tgl Terima,received_date,tanggal,ya
+rm_receiving,Jam,received_time,jam,tidak
+rm_receiving,Kode Bahan,material_code,teks,tidak
+rm_receiving,Nama Bahan,material_name,teks,tidak
+rm_receiving,Supplier,supplier_raw,teks,tidak
+rm_receiving,No Lot Supplier,supplier_lot,teks,tidak
+rm_receiving,Lot Internal,internal_lot,teks,ya
+rm_receiving,Qty,qty,angka,tidak
+rm_receiving,Satuan,unit,teks,tidak
+rm_receiving,COA FFA (%),coa_ffa,angka,tidak
+rm_receiving,QC FFA (%),qc_ffa,angka,tidak
+rm_receiving,COA PV (meq/kg),coa_pv,angka,tidak
+rm_receiving,QC PV (meq/kg),qc_pv,angka,tidak
+rm_receiving,COA Kadar Air (%),coa_moisture,angka,tidak
+rm_receiving,QC Kadar Air (%),qc_moisture,angka,tidak
+rm_receiving,COA Warna (R),coa_color_red,angka,tidak
+rm_receiving,QC Warna (R),qc_color_red,angka,tidak
+rm_receiving,COA DE,coa_de,angka,tidak
+rm_receiving,QC DE,qc_de,angka,tidak
+rm_receiving,COA pH,coa_ph,angka,tidak
+rm_receiving,QC pH,qc_ph,angka,tidak
+rm_receiving,COA Protein (%),coa_protein,angka,tidak
+rm_receiving,QC Protein (%),qc_protein,angka,tidak
+rm_receiving,COA Lemak (%),coa_fat,angka,tidak
+rm_receiving,QC Lemak (%),qc_fat,angka,tidak
+rm_receiving,COA Kelarutan (ml),coa_solubility,angka,tidak
+rm_receiving,QC Kelarutan (ml),qc_solubility,angka,tidak
+rm_receiving,COA TPC (cfu/g),coa_tpc,angka,tidak
+rm_receiving,QC TPC (cfu/g),qc_tpc,angka,tidak
+rm_receiving,Keputusan,decision,teks,ya
+rm_receiving,Keterangan,remarks,teks,tidak
+rm_receiving,Inspektor,inspector,teks,tidak
+rm_receiving,Tgl Release,qc_release_date,tanggal,tidak
+sensory_verifikator,Tgl Uji,test_date,tanggal,ya
+sensory_verifikator,Batch,batch_no,batch,ya
+sensory_verifikator,Sampel,sample_code,teks,ya
+sensory_verifikator,Grade,grade,grade,ya
+sensory_verifikator,Verifikator,verifikator_id,teks,ya
+sensory_verifikator,Creamy,score_creamy,teks,ya
+sensory_verifikator,Mouthfeel,score_mouthfeel,teks,ya
+sensory_verifikator,Milky,score_milky,teks,ya
+sensory_verifikator,Manis,score_sweetness,teks,ya
+sensory_verifikator,Hasil Verif,grade_result,teks,ya
+sensory_verifikator,Hasil KimFis,kimfis_grade,teks,tidak
+sensory_verifikator,Catatan,notes,teks,tidak
+release_history,Waktu,status_time,waktu,ya
+release_history,No Batch,batch_no,batch,ya
+release_history,Mix,mix,teks,ya
+release_history,Grade,grade,grade,tidak
+release_history,Status,status,teks,ya
+release_history,Alasan,reason,teks,tidak
+release_history,Oleh,decided_by,teks,tidak
+shipments,No DO,do_no,teks,ya
+shipments,Tgl Kirim,ship_date,tanggal,ya
+shipments,Customer,customer_raw,teks,ya
+shipments,No Batch,batch_no,batch,ya
+shipments,Mix,mixes,teks,tidak
+shipments,Produk,grade,grade,ya
+shipments,Qty (kg),qty_kg,angka,tidak
+shipments,Jumlah Kemasan,packs,angka,tidak
+complaints,No Komplain,complaint_id,teks,ya
+complaints,Tgl Terima,received_date,tanggal,ya
+complaints,Customer,customer_raw,teks,ya
+complaints,Produk,grade,grade,ya
+complaints,No Lot (dari customer),lot_text,teks,tidak
+complaints,Keluhan,description,teks,ya
+complaints,Qty Terdampak (kg),qty_affected_kg,angka,tidak
+complaints,Status,status,teks,tidak
+complaints,Hasil Investigasi,investigation_result,teks,tidak
+retail_transition_samples,Tanggal,sample_date,tanggal,ya
+retail_transition_samples,Dari,from_grade,grade,ya
+retail_transition_samples,Ke,to_grade,grade,ya
+retail_transition_samples,Jam Sampel,sample_clock,jam,ya
+retail_transition_samples,Hasil,result,teks,ya
+retail_transition_samples,Analis,analyst_id,teks,tidak
+retail_transition_samples,Ket,handling,teks,tidak
+formula,Grade,grade,grade,ya
+formula,Versi,formula_version,teks,ya
+formula,Berlaku Mulai,valid_from,tanggal,ya
+formula,Bahan,material,teks,ya
+formula,Persen,pct,angka,tidak

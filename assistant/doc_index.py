@@ -210,14 +210,23 @@ class Index:
                 total += self.idf[t] * tf * (self.k1 + 1) / norm
         return total
 
-    def search(self, question, k_rules=3, k_records=3, today=None):
+    def containing(self, text, limit=4):
+        """Chunks that mention a number word for word, like a complaint or batch number.
+        BM25 splits 'CMP-25-005' into pieces that also match every other 2025 document."""
+        text = text.lower()
+        return [(0.0, c) for c in self.chunks if text in c.text.lower()][:limit]
+
+    def search(self, question, k_rules=3, k_records=3, today=None, period_from=None):
         """Best chunks from the rules (SOP, spec) and from the records (NCR, memo, logbook, ...).
 
         The two groups are ranked separately. There are ten times more record chunks than
         rule chunks, so in one shared ranking a complaint that mentions "kadar air NDC-28P"
         pushes the spec that defines the limit out of the list.
+
+        period_from: text to read the period from when it isn't the search text itself, for
+        example a fixed search for an SOP made on behalf of a question about 2025.
         """
-        allowed = {id(c) for c in valid_revisions(self.chunks, question, today)}
+        allowed = {id(c) for c in valid_revisions(self.chunks, period_from or question, today)}
         terms = tokenize(question)
         scored = [(self.score(i, terms), c) for i, c in enumerate(self.chunks) if id(c) in allowed]
         scored = sorted(((s, c) for s, c in scored if s > 0), key=lambda x: -x[0])

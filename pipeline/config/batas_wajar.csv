@@ -1,0 +1,12 @@
+tabel,kolom,min,maks,jika_di_luar,maks_sama_berturut,keterangan
+production_mix_log,inlet_temp,,300,bagi 10,,koma bergeser: 1827.3 untuk 182.73
+production_mix_log,outlet_temp,,150,bagi 10,,
+production_mix_log,homog_p1_bar,,400,bagi 10,,
+production_mix_log,homog_p2_bar,,100,bagi 10,,
+production_mix_log,emulsion_temp,,100,bagi 10,,
+dryer_logger,inlet_temp,100,300,kosongkan,16,0 dan 9999 adalah kode sensor mati. Nilai yang sama lebih dari 16 kali berturut (8 jam) dianggap sensor macet
+dryer_logger,outlet_temp,50,150,kosongkan,16,
+dryer_logger,homog_p1_bar,50,400,kosongkan,16,
+dryer_logger,homog_p2_bar,5,100,kosongkan,16,tekanan ditulis bilangan bulat jadi wajar sama sampai 14 kali berturut. Jangan turunkan batasnya di bawah itu
+dryer_logger,emulsion_temp,30,100,kosongkan,16,
+dryer_logger,ambient_rh,5,100,kosongkan,16,

@@ -7,9 +7,12 @@ Usage (Anaconda Prompt):
     python eval/run_answer_eval.py
     python eval/run_answer_eval.py --set holdout
     python eval/run_answer_eval.py --prompt jawab_v2
+    python eval/run_answer_eval.py --set data_holdout --model gemini-3.6-flash
+    python eval/run_answer_eval.py --set data_holdout --tag ulang
 
-Results go to eval/hasil_<set>_<prompt>.csv. Run the same command again to continue
-after an error, or add --fresh to start that file over.
+Results go to eval/hasil_<set>_<prompt>.csv. Another model or a --tag adds to the name
+(hasil_data_holdout_jawab_v5_gemini-3.6-flash.csv), so a reviewed file is never overwritten.
+Run the same command again to continue after an error, or add --fresh to start that file over.
 """
 
 import argparse
@@ -30,13 +33,16 @@ from assistant import DEFAULT_MODEL, DEFAULT_PROMPT, ask, build_index  # noqa: E
 
 TODAY = date(2026, 7, 1)
 FIELDS = ["id", "tipe", "pertanyaan", "jawaban_benar", "doc_no", "rev", "kata_kunci", "model", "prompt",
-          "jawaban_model", "sumber_terambil", "cek_otomatis", "cek_manual", "catatan_review"]
+          "jawaban_model", "data_terambil", "sumber_terambil", "cek_otomatis", "cek_manual", "catatan_review"]
 
 
 def keyword_check(answer, keywords):
     # ";" separates groups that must all appear, "|" separates alternatives inside a group
     groups = [g for g in keywords.split(";") if g.strip()]
     return all(any(alt.strip().lower() in answer.lower() for alt in g.split("|")) for g in groups)
+
+
+NETWORK_ERRORS = {"RemoteProtocolError", "ConnectError", "ConnectTimeout", "ReadTimeout", "ReadError", "WriteError"}
 
 
 def ask_with_retry(client, index, question, model, prompt, tries=3):
@@ -56,20 +62,32 @@ def ask_with_retry(client, index, question, model, prompt, tries=3):
         except errors.ServerError:
             print(f"  server Gemini sibuk, tunggu 30 detik (percobaan {attempt}/{tries})...")
             time.sleep(30)
-    print("\nServer Gemini masih sibuk. Coba lagi nanti dengan perintah yang sama.")
+        except Exception as e:
+            # a dropped connection comes from the http library, not from google.genai
+            if type(e).__name__ not in NETWORK_ERRORS:
+                raise
+            print(f"  koneksi ke Gemini putus, tunggu 30 detik (percobaan {attempt}/{tries})...")
+            time.sleep(30)
+    print("\nServer Gemini masih sibuk atau koneksi putus terus. Coba lagi nanti dengan perintah yang sama.")
     return None
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--set", default="dokumen", choices=["dokumen", "holdout"])
+    parser.add_argument("--set", default="dokumen", choices=["dokumen", "holdout", "data", "data_holdout", "data_holdout2"])
     parser.add_argument("--prompt", default=DEFAULT_PROMPT)
     parser.add_argument("--model", default=DEFAULT_MODEL)
     parser.add_argument("--delay", type=float, default=7, help="seconds between questions")
     parser.add_argument("--fresh", action="store_true", help="start the result file over")
+    parser.add_argument("--tag", default="", help="extra name for a repeat run, e.g. ulang")
     args = parser.parse_args()
 
-    out_file = EVAL_DIR / f"hasil_{args.set}_{args.prompt}.csv"
+    name = f"hasil_{args.set}_{args.prompt}"
+    if args.model != DEFAULT_MODEL:
+        name += f"_{args.model}"
+    if args.tag:
+        name += f"_{args.tag}"
+    out_file = EVAL_DIR / f"{name}.csv"
     with open(EVAL_DIR / f"pertanyaan_{args.set}.csv", encoding="utf-8") as f:
         questions = list(csv.DictReader(f))
 
@@ -82,7 +100,8 @@ def main():
     client = genai.Client()  # reads GEMINI_API_KEY
     index = build_index()
     with open(out_file, "a" if saved else "w", newline="", encoding="utf-8-sig") as f:
-        writer = csv.DictWriter(f, fieldnames=FIELDS)
+        # question sets can carry extra columns (rute and fakta in the data set), they aren't saved
+        writer = csv.DictWriter(f, fieldnames=FIELDS, extrasaction="ignore")
         if not saved:
             writer.writeheader()
         for q in questions:
@@ -92,8 +111,9 @@ def main():
             result = ask_with_retry(client, index, q["pertanyaan"], args.model, args.prompt)
             if result is None:
                 break
-            answer, found = result
+            answer, found, results = result
             row = {**q, "model": args.model, "prompt": args.prompt, "jawaban_model": answer,
+                   "data_terambil": "; ".join(title for title, _ in results),
                    "sumber_terambil": "; ".join(c.name for _, c in found),
                    "cek_otomatis": "OK" if keyword_check(answer, q["kata_kunci"]) else "CEK",
                    "cek_manual": "", "catatan_review": ""}

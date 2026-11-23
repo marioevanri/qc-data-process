@@ -1,40 +1,36 @@
-"""Clean the production mix log: one row per mix, with the keys every other table joins on."""
+"""Clean the production mix log: one row per mix, with the keys every other table joins on.
+
+Columns and their raw names are in config/kolom.csv. Only prod_date, line, grade, batch_no
+and start are needed, everything else (process values, lots, operator) may be missing when
+production shares less with QC.
+"""
 
 import pandas as pd
 
-from common import RAW_DIR, clean_batch, clean_grade, clean_lot, fix_decimal_shift, read_raw, to_number
+from common import (SourceOff, apply_limits, clean_batch, clean_grade, clean_lot, clean_time,
+                    drop_exact_duplicates, parse_date, read_source, to_number)
 
-# highest value that still makes sense, anything above is a slipped decimal point
-HIGHEST = {"inlet_temp": 300, "outlet_temp": 150, "homog_p1_bar": 400, "homog_p2_bar": 100, "emulsion_temp": 100}
-
-RENAME = {
-    "Line": "line", "Qty (kg)": "mix_kg", "Oil Lot": "oil_lot", "GSS Lot": "gss_lot", "Protein Lot": "protein_lot",
-    "Inlet (C)": "inlet_temp", "Outlet (C)": "outlet_temp", "Homog P1 (bar)": "homog_p1_bar",
-    "Homog P2 (bar)": "homog_p2_bar", "Feed TS (%)": "feed_solids", "Emul Temp (C)": "emulsion_temp",
-    "Operator": "operator", "Remarks": "remarks",
-}
+NUMBERS = ["mix_kg", "inlet_temp", "outlet_temp", "homog_p1_bar", "homog_p2_bar", "feed_solids", "emulsion_temp"]
 
 
 def clean_production_mix_log():
-    raw = read_raw(RAW_DIR / "production" / "Production_Mix_Log.csv")
-    notes = {"baris_raw": len(raw)}
+    df, notes = read_source("production_mix_log")
 
     # 1. the same row exported twice
-    df = raw.drop_duplicates().rename(columns=RENAME).copy()
-    notes["duplikat_dibuang"] = len(raw) - len(df)
+    df = drop_exact_duplicates(df, notes)
 
     # 2. text columns people type in different ways
     df["line"] = df["line"].str.strip().str.upper()
-    df["grade"] = clean_grade(df["Product"])
-    df["batch_no"] = clean_batch(df["Batch"])
+    df["grade"] = clean_grade(df["grade"])
+    df["batch_no"] = clean_batch(df["batch_no"])
     for col in ["oil_lot", "gss_lot", "protein_lot"]:
         df[col] = clean_lot(df[col])
 
     # 3. dates and times. A production day runs 07:00 to 07:00, so a mix that starts
     #    at 02:00 belongs to the previous date but happens on the next calendar day.
-    df["prod_date"] = pd.to_datetime(df["Date"], format="%d-%m-%Y")
-    start_time = pd.to_timedelta(df["Start"] + ":00")
-    end_time = pd.to_timedelta(df["Finish"] + ":00")
+    df["prod_date"] = parse_date(df["prod_date"])
+    start_time = pd.to_timedelta(clean_time(df["start"]) + ":00")
+    end_time = pd.to_timedelta(clean_time(df["end"]) + ":00")
     after_midnight = start_time < pd.Timedelta(hours=7)
     df["start"] = df["prod_date"] + start_time + pd.to_timedelta(after_midnight.astype(int), unit="D")
     df["end"] = df["start"].dt.normalize() + end_time
@@ -51,11 +47,12 @@ def clean_production_mix_log():
     df["mix_letter"] = order.map(lambda n: chr(ord("A") + n))
     df["mix_id"] = df["batch_no"] + "-" + df["mix_letter"]
 
-    # 5. numbers
-    df["mix_kg"] = to_number(df["mix_kg"]).astype("Int64")
-    df["feed_solids"] = to_number(df["feed_solids"])
-    for col, highest in HIGHEST.items():
-        df[col], notes[f"desimal_geser_{col}"] = fix_decimal_shift(to_number(df[col]), highest)
+    # 5. numbers, with slipped decimal points fixed by the ranges in batas_wajar.csv
+    for col in NUMBERS:
+        df[col] = to_number(df[col])
+    df["mix_kg"] = df["mix_kg"].round().astype("Int64")
+    apply_limits(df, "production_mix_log", notes)
+    for col in NUMBERS[1:]:
         notes[f"kosong_{col}"] = int(df[col].isna().sum())
 
     df["prod_date"] = df["prod_date"].dt.strftime("%Y-%m-%d")
@@ -67,8 +64,16 @@ def clean_production_mix_log():
     return df[columns].reset_index(drop=True), notes
 
 
+def production_or_none():
+    """The clean production log, or None when production data isn't available to QC.
+    The other tables then skip the steps that need it."""
+    try:
+        return clean_production_mix_log()[0]
+    except SourceOff:
+        return None
+
+
 if __name__ == "__main__":
     table, notes = clean_production_mix_log()
     for name, value in notes.items():
         print(f"{name:<32}{value}")
-    print(table.head())

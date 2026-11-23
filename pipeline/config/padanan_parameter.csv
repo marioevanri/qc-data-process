@@ -1,0 +1,17 @@
+parameter,tabel,kolom,keterangan
+Lemak,qc_lab_final,fat_pct,nama parameter persis seperti di spek_produk.csv (salinan DCIS dari RND)
+Protein,qc_lab_final,protein_pct,
+Kadar air,qc_lab_final,moisture_pct,
+Viskositas larutan 20 %,qc_lab_final,viscosity_cp,
+Bulk density,qc_lab_final,bulk_density,
+Indeks kelarutan,qc_lab_final,solubility_ml,
+Wettability,qc_lab_final,wettability_s,
+Warna L*,qc_lab_final,L_star,
+pH larutan,qc_lab_final,ph,
+Coffee test,qc_lab_final,coffee_test,
+TPC,micro_results,tpc_cfu_g,
+Kapang khamir,micro_results,ym_cfu_g,
+Coliform,micro_results,coliform_cfu_g,
+E. coli,micro_results,ecoli,
+Salmonella,micro_results,salmonella,
+Sensory,sensory_kimfis,grade_result,

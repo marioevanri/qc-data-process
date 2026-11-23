@@ -1,0 +1,15 @@
+tabel,aktif,folder,pola_file,pemilik,keterangan
+production_mix_log,ya,production,Production_Mix_Log.csv,Produksi,induk nomor batch dan mix. Kalau dimatikan perbaikan batch di tabel lain berhenti
+dryer_logger,ya,production/logger,Dryer_*.csv,Produksi,pembacaan sensor spray dryer tiap 30 menit
+qc_lab_kimfis,ya,qc_lab,KimFis_*.csv,QC KimFis,
+sensory_kimfis,ya,sensory,Sensory_KimFis_*.csv,QC Sensory,
+sensory_controls,ya,sensory,Log_Kontrol_Sensory.csv,QC Sensory,dipakai juga untuk mengisi ID kontrol di tabel sensory
+nirs_results,ya,nirs,NIRS_Export_*.csv,QC KimFis,
+micro_results,ya,micro,Hasil_Mikro_*.csv,QC Mikro,
+rm_receiving,ya,rm_receiving,Log_Penerimaan_RM_*.csv,QC Incoming,
+sensory_verifikator,ya,sensory,Verifikasi_H1.csv,QC Sensory,cek ulang sampel H+1 oleh verifikator
+release_history,ya,release,Status_Release.csv,QC,riwayat status QUARANTINE sampai RELEASE per mix
+shipments,ya,warehouse,Pengiriman_*.csv,Gudang,
+complaints,ya,complaints,Komplain_Customer.csv,QA,batch dan DO dilengkapi dari laporan investigasi di folder dokumen
+retail_transition_samples,ya,sensory,Transisi_Retail.csv,QC Sensory,sampel saat line RT ganti grade. Batch dan mix dicari dari log produksi
+formula,tidak,formula,*.xlsx,RND,belum ada data dari RND. Isi kolom.csv sesuai file yang diberikan lalu ubah aktif jadi ya

@@ -20,7 +20,7 @@ python generate.py            # about 2 to 3 minutes, about 85 MB
 python generate.py --seed 7   # a different factory with different hidden incidents
 ```
 
-Generated data is reproducible from the seed, so keep `data/` and `docs/` out of git and regenerate instead. For a blind early warning test, pick a seed nobody has looked at and don't print what it drew.
+On the same machine the same seed gives the same data, so `data/` and `docs/` stay out of git and are regenerated instead. Across machines that hasn't held: seed 42 gave 182 documents on one and 169, with other batch numbers, in a different environment. The cause isn't found yet, probably the Python or numpy version. For a blind early warning test, pick a seed nobody has looked at and don't print what it drew.
 
 ## What you get
 
